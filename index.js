@@ -6,6 +6,10 @@ const fs = require("fs");
 const app = express();
 app.use(express.json());
 
+app.get("/", async function (req, res) {
+res.sendFile(path.join(__dirname, "index.html"));
+});
+
 // API Endpoint for JSON file
 app.get('/shoti', (req, res) => {
     const filePath = path.join(__dirname, 'shoti.json');
