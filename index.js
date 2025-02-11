@@ -1,5 +1,7 @@
 const express = require("express");
 const { gpt, llama } = require("gpti");
+const path = require("path");
+const fs = require("fs");
 
 const app = express();
 //const PORT = 4000;
@@ -119,6 +121,6 @@ app.post("/gpt", async (req, res) => {
 });
 
 // ✅ Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server is running on port ${PORT}`);
 });
