@@ -70,6 +70,100 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+	<style>
+	/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    color: white;
+    padding-top: 20px;
+    position: fixed;
+    left: -250px; /* Hide sidebar initially */
+    top: 0;
+    transition: 0.3s ease;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    padding: 10px 20px;
+}
+
+.menu li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.menu li a:hover {
+    background: #444;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.dropdown-menu.open {
+    display: block;
+}
+
+.dropdown-btn {
+    cursor: pointer;
+}
+
+/* Toggle Button Styles */
+.toggle-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+    display: none; /* Hide on desktop */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .toggle-btn {
+        display: block; /* Show menu button on mobile */
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
+
+/* Main Content Styles */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+		</style>
 <style>
 	
 	/* Hide submenu by default */
