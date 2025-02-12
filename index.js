@@ -24,6 +24,10 @@ app.get("/", async function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
+app.get("/video", async function (req, res) {
+  res.sendFile(path.join(__dirname, "video.html"));
+});
+
 app.get('/gemini', async (req, res) => {
   const ask = req.query.ask;
   const imagurl = req.query.imagurl;
