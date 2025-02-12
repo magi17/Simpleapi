@@ -1,161 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Random Shoti Video</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-      background: #111;
-      color: #fff;
-    }
-
-    #video-container {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      margin: 50px auto;
-      text-align: center;
-      max-width: 800px;
-      max-height: 500px;
-      overflow: hidden;
-    }
-
-    .documentation-button,
-    .next-video,
-    .contact-button {
-      display: inline-block;
-      width: 150px;
-      margin: 20px 10px;
-      background-color: #222;
-      color: #fff;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 16px;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .documentation-button:hover,
-    .next-video:hover,
-    .contact-button:hover {
-      background-color: #444;
-    }
-
-    h1#video-title {
-      color: #ffcc00; /* Changed text color */
-    }
-
-    h1,
-    h2,
-    p,
-    .username,
-    .nickname {
-      text-align: center;
-    }
-
-    .wave {
-      background: rgba(255, 255, 255, 0.1);
-      animation: wave 4s ease-in-out infinite alternate;
-    }
-
-    button.next-video {
-      background-color: orange;
-    }
-
-    #video {
-      width: 320px;
-      height: 240px;
-      margin: 0 auto;
-      display: block;
-    }
-
-    @keyframes wave {
-      0% {
-        transform: scaleY(1);
-      }
-      50% {
-        transform: scaleY(1.5);
-      }
-      100% {
-        transform: scaleY(1);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Sidebar</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-  <h1 id="video-title">Shoti Video</h1>
 
-  <div id="video-scroll-container">
-    <!-- Added wrapping div for scrolling -->
-    <div id="video-container">
-      <p class="username">Username:</p>
-      <video
-        id="video"
-        width="320"
-        height="240"
-        autoplay
-        loop
-        controls
-      ></video>
-
-      <button class="next-video" onclick="fetchRandomVideo()">Next Video</button>
-      <a href="/shoti">
-      <button>Shoti api</button>
-      </a>
-      <a href="/gpt?message=hi">
-      <button>gpt4o</button>
-      </a>
-      <a href="/llama?message=hi">
-      <button>llama</button>
-      </a>
-      
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <button class="toggle-btn">☰ Menu</button>
+        <br>
+        <ul class="menu">
+            <li><a href="/video">shoti video website</a></li>
+            <li><a href="/shoti">shoti api</a></li>
+            <li class="dropdown">
+            
+                <a href="#" class="dropdown-btn">AI API ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/gpt?message=hi">Gpt4o</a></li>
+                    <li><a href="/llama?message=hi">llama</a></li>
+                    <li><a href="/gemini?url=&imageurl=">Gemini 1.5 vision</a></li>
+                </ul>
+            </li>          
+           
+        </ul>
     </div>
-  </div>
-  
 
-  <div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
+    <!-- Main Content -->
+    <br>
+    
+    <div class="container">
+        <img src="https://i.imgur.com/VF0jw2m.jpeg" alt="Avatar" class="avatar">
+        <h2 style="color: white;">Mark Martinez</h2>
+        <p style="color: gray;">CHATGPT CODING😂</p>
+        <p style="color: gray;">ALL MY CODE IS MADE BY CHATGPT</p>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
 
-
-  <script>
-const fetchRandomVideo = async () => {
-  /*const apiUrl = "https://random-use-api-production.up.railway.app/shoti";*/
-
-  try {
-    const response = await fetch("/shoti"); // Fetch the data
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json(); // Parse the JSON
-    const { url, name, description } = data;
-    const rvid = data.url;
-    const username = data.name;
-
-
-    console.log(data); // Use the fetched data
-    console.log("success");
-    document.getElementById("video").src = rvid;
-    document.querySelector(".username").textContent =
-          "Username: " + username;
-  } catch (error) {
-    console.error("Error fetching data:", error); // Handle errors
-  }
-};
-
-
-
-fetchRandomVideo();
-
-</script>
+    <script src="script.js"></script>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.querySelector(".sidebar");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("toggle-btn");
+    toggleBtn.innerHTML = "☰ Menu";
+    document.body.appendChild(toggleBtn);
+
+    toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+    });
+
+    // Handle multiple dropdown menus
+    const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+
+    dropdownBtns.forEach(btn => {
+        btn.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent page reload
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.classList.toggle("open"); // Toggle submenu visibility
+        });
+    });
+});
+</script>
+<style>
+	
+	/* Hide submenu by default */
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+/* Show submenu when active */
+.dropdown-menu.open {
+    display: block;
+}
+
+/* Style for clickable dropdown */
+.dropdown-btn {
+    cursor: pointer;
+}
+/* Hide sidebar by default on mobile */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    color: white;
+    padding-top: 20px;
+    position: fixed;
+    left: -250px; /* Hide sidebar initially */
+    top: 0;
+    transition: 0.3s ease;
+}
+
+/* Show sidebar when open */
+.sidebar.open {
+    left: 0;
+}
+
+/* Menu Toggle Button */
+.toggle-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+    display: none; /* Hide on desktop */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .toggle-btn {
+        display: block; /* Show menu button on mobile */
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
+</style>
+<style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+            width: 50%;
+            max-width: 600px;
+            min-width: 300px;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #007bff;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin: 0 15px;
+            font-size: 30px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #007bff;
+            transform: scale(1.2);
+        }
+    </style>
 </html>
