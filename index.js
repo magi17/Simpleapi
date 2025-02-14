@@ -40,7 +40,7 @@ const client = new Mistral({ apiKey: apiKey });
 
 // GET endpoint to handle user messages
 app.get('/mistral', async (req, res) => {
-  const { ask } = req.query;
+  const { message } = req.query;
 
   if (!message) {
     return res.status(400).json({ error: 'Message is required ex: mistral?ask=What is agriculture hydroponics ' });
