@@ -168,8 +168,7 @@ app.get("/llama", async (req, res) => {
     const message = req.query.message;
     if (!message) return res.status(400).json({ error: "Message is required" });
 
-    let messages = [{ content: message }];
-   // let roles = [{ role: "user", }];
+    let messages = [{ role: "user", content: message }];
     let data = await llama({ messages, markdown: false, stream: false });
 
     res.json(data);
