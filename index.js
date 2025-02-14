@@ -113,7 +113,7 @@ app.get("/llama", async (req, res) => {
 
 
 app.get("/", async function (req, res) {
-res.sendFile(path.join(__dirname,  "./index.html"));
+res.sendFile(path.join(__dirname,  "index.html"));
 });
 
 app.get('/shoti', async (req, res) => {
