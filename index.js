@@ -5,6 +5,7 @@ const cors = require('cors');
 const { gpt, llama } = require("gpti");
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { off } = require('process');
+const { Mistral } = require('@mistralai/mistralai');
 const apiKeys = [
   "AIzaSyC5n8Fr6Xq722k0jkrRM0emqSQk_4s_C-o",
   "AIzaSyD5CCNspQlYuqIR2t1BggzEFG0jmTThino"
@@ -30,6 +31,35 @@ fs.access(quotesFilePath)
     console.error(err);
     process.exit(1);
   });
+
+// Replace with your API key
+const apiKey = 'cixQtTuj5ql7j0mf25m79mk75n6jdPoU';
+
+// Initialize the Mistral client
+const client = new Mistral({ apiKey: apiKey });
+
+// GET endpoint to handle user messages
+app.get('/mistral', async (req, res) => {
+  const { ask } = req.query;
+
+  if (!message) {
+    return res.status(400).json({ error: 'Message is required ex: mistral?ask=What is agriculture hydroponics ' });
+  }
+
+  try {
+    const chatResponse = await client.chat.complete({
+      model: 'mistral-large-latest',
+      messages: [{ role: 'user', content: message }],
+    });
+
+    const botResponse = chatResponse.choices[0].message.content;
+    res.json({ response: botResponse });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred while processing your request' });
+  }
+});
+
 
 app.get("/video", async function (req, res) {
   res.sendFile(path.join(__dirname, "video.html"));
