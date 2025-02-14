@@ -128,7 +128,7 @@ app.get("/gpt", async (req, res) => {
   }
 });
 
-/*app.get('/llama', async (req, res) => {
+app.get('/llama2', async (req, res) => {
        const q = req.query.q;
        const id = 1;
 
@@ -161,7 +161,7 @@ app.get("/gpt", async (req, res) => {
        } catch (error) {
            res.status(500).json({ error: 'Internal Server Error' });
        }
-   });*/
+   });
 
 app.get("/llama", async (req, res) => {
   try {
@@ -172,7 +172,7 @@ app.get("/llama", async (req, res) => {
    // let roles = [{ role: "user", }];
     let data = await llama({ messages, markdown: false, stream: false });
 
-    res.json( response: data );
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
