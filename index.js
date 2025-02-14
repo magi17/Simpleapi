@@ -128,7 +128,7 @@ app.get("/gpt", async (req, res) => {
   }
 });
 
-app.get('/llama', async (req, res) => {
+/*app.get('/llama', async (req, res) => {
        const q = req.query.q;
        const id = 1;
 
@@ -161,9 +161,9 @@ app.get('/llama', async (req, res) => {
        } catch (error) {
            res.status(500).json({ error: 'Internal Server Error' });
        }
-   });
+   });*/
 
-app.get("/llama2", async (req, res) => {
+app.get("/llama", async (req, res) => {
   try {
     const message = req.query.message;
     if (!message) return res.status(400).json({ error: "Message is required" });
