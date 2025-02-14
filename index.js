@@ -89,7 +89,7 @@ app.get("/gpt", async (req, res) => {
     if (!message) return res.status(400).json({ error: "Message is required" });
 
     let messages = [{ role: "user", content: message }];
-    let data = await gpt.v3({ messages, markdown: false, stream: false });
+    let data = await gpt.v3({ messages, status: true });
 
     res.json(data);
   } catch (error) {
