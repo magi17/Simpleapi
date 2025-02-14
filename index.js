@@ -128,7 +128,42 @@ app.get("/gpt", async (req, res) => {
   }
 });
 
-app.get("/llama", async (req, res) => {
+app.get('/llama', async (req, res) => {
+       const q = req.query.q;
+       const id = 1;
+
+       if (!q) {
+           return res.status(400).json({ error: 'Both "q" and "id" parameters are required' });
+       }
+
+       let messages = [];
+       const filePath = path.join(__dirname, 'json', 'llama', `${id}.json`);
+
+       try {
+           const data = await fs.readFile(filePath, 'utf8');
+           messages = JSON.parse(data);
+       } catch (error) {
+           messages = [
+               { role: "system", content: "You're a helpful assistant." }
+           ];
+       }
+
+       messages.push({ role: "user", content: q });
+
+       try {
+           const response = await llama({
+               messages,
+               markdown: false,
+               stream: false
+           });
+
+           res.json({ response });
+       } catch (error) {
+           res.status(500).json({ error: 'Internal Server Error' });
+       }
+   });
+
+app.get("/llama2", async (req, res) => {
   try {
     const message = req.query.message;
     if (!message) return res.status(400).json({ error: "Message is required" });
@@ -137,12 +172,11 @@ app.get("/llama", async (req, res) => {
    // let roles = [{ role: "user", }];
     let data = await llama({ messages, markdown: false, stream: false });
 
-    res.json(data);
+    res.json( response: data );
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 app.get("/", async function (req, res) {
 res.sendFile(path.join(__dirname,  "index.html"));
