@@ -88,9 +88,9 @@ app.get("/gpt", async (req, res) => {
     const message = req.query.message;
     if (!message) return res.status(400).json({ error: "Message is required" });
 
-    let messages = [{ content: message }];
-   let roles = [{ role: "user", }];
-    let data = await gpt.v3({ messages, roles, status: true });
+    let messages = [{ role: "user", content: message }];
+   //let roles = [{ role: "user", }];
+    let data = await gpt.v3({ messages, markdown: false, stream: false, status: true });
 
     res.json(data);
   } catch (error) {
@@ -103,8 +103,9 @@ app.get("/llama", async (req, res) => {
     const message = req.query.message;
     if (!message) return res.status(400).json({ error: "Message is required" });
 
-    let messages = [{ role: "user", content: message }];
-    let data = await llama({ messages, markdown: false, stream: false });
+    let messages = [{ content: message }];
+    let roles = [{ role: "user", }];
+    let data = await llama({ messages, markdown: false, stream: false, roles });
 
     res.json(data);
   } catch (error) {
