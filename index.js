@@ -7,8 +7,8 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { off } = require('process');
 const { Mistral } = require('@mistralai/mistralai');
 const apiKeys = [
-  "AIzaSyC5n8Fr6Xq722k0jkrRM0emqSQk_4s_C-o",
-  "AIzaSyD5CCNspQlYuqIR2t1BggzEFG0jmTThino"
+  "AIzaSyD5CCNspQlYuqIR2t1BggzEFG0jmTThino",
+  "AIzaSyC5n8Fr6Xq722k0jkrRM0emqSQk_4s_C-o"
 ];
 const API_KEY = apiKeys[Math.floor(Math.random() * apiKeys.length)];
 
