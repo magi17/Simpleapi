@@ -8,7 +8,9 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { off } = require('process');
 const { Mistral } = require('@mistralai/mistralai');
 const models = [
-  "gemini-2.0-pro-exp-02-05"
+  "gemini-2.0-pro-exp-02-05",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite-preview-02-05"
 ];
 const app = express();
 app.use(express.json());
