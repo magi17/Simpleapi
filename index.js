@@ -7,17 +7,9 @@ const { gpt, llama } = require("gpti");
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { off } = require('process');
 const { Mistral } = require('@mistralai/mistralai');
-/*const apiKeys = [
-  "AIzaSyD5CCNspQlYuqIR2t1BggzEFG0jmTThino",
-  "AIzaSyC5n8Fr6Xq722k0jkrRM0emqSQk_4s_C-o"
+const models = [
+  "gemini-2.0-pro-exp-02-05"
 ];
-const API_KEY = apiKeys[Math.floor(Math.random() * apiKeys.length)];
-
-if (!API_KEY) {
-  console.error("API_KEY is not set.");
-  process.exit(1);
-}
-*/
 const app = express();
 app.use(express.json());
 
@@ -71,11 +63,63 @@ const apiKeys = [
 ];
 
 const API_KEY = apiKeys[Math.floor(Math.random() * apiKeys.length)];
-
+const MODEL_NAME = models[Math.floor(Math.random() * models.length)];
 if (!API_KEY) {
   console.error("API_KEY is not set.");
   process.exit(1);
 }
+
+app.get('/test', async (req, res) => {
+  const ask = req.query.ask;
+  const imagurl = req.query.imagurl;
+
+  if (!ask) {
+    return res.status(400).json({ error: 'The ask parameter is required.' });
+  }
+
+  try {
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+
+    let result;
+
+    if (imagurl) {
+      // Fetch the image and include it in the request
+      const imageResponse = await axios.get(imagurl, {
+        responseType: 'arraybuffer',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+          'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+          'Referer': 'https://facebook.com'
+        }
+      });
+
+      const image = {
+        inlineData: {
+          data: Buffer.from(imageResponse.data).toString("base64"),
+          mimeType: "image/jpeg",
+        },
+      };
+
+      result = await model.generateContent([ask, image]);
+    } else {
+      // If imagurl is not provided, only use the text input (ask)
+      result = await model.generateContent(ask);
+    }
+
+    res.json({
+      model: MODEL_NAME, // Include the randomly selected model in the response
+      description: result.response.text(),
+    });
+  } catch (error) {
+    console.error("Error:", error.message);
+    res.status(500).json({
+      error: 'An error occurred while processing the request.',
+      details: error.message,
+    });
+  }
+});
+  
 
 app.get('/gemini-2.0pro', async (req, res) => { // Updated endpoint
   const ask = req.query.ask;
