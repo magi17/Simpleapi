@@ -8,7 +8,7 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { off } = require('process');
 const { Mistral } = require('@mistralai/mistralai');
 const { yts } = require("@hiudyy/ytdl");
-//const fetch = require("node-fetch");
+const fetch = require("node-fetch");
 const models = [
   "gemini-2.0-pro-exp-02-05",
   "gemini-2.0-flash",
