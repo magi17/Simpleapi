@@ -8,7 +8,7 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { off } = require('process');
 const { Mistral } = require('@mistralai/mistralai');
 const { yts } = require("@hiudyy/ytdl");
-const fetch = require("node-fetch");
+//const fetch = require("node-fetch");
 const models = [
   "gemini-2.0-pro-exp-02-05",
   "gemini-2.0-flash",
@@ -28,6 +28,14 @@ fs.access(quotesFilePath)
     console.error(err);
     process.exit(1);
   });
+
+app.get("/", async function (req, res) {
+res.sendFile(path.join(__dirname,  "index.html"));
+});
+
+app.get("/video", async function (req, res) {
+  res.sendFile(path.join(__dirname, "video.html"));
+});
 
 // Replace with your API key
 const apiKey = 'cixQtTuj5ql7j0mf25m79mk75n6jdPoU';
@@ -58,9 +66,7 @@ app.get('/mistral', async (req, res) => {
 });
 
 
-app.get("/video", async function (req, res) {
-  res.sendFile(path.join(__dirname, "video.html"));
-});
+
 
 app.get('/yts2', async (req, res) => {
     const query = req.query.q;
@@ -378,9 +384,7 @@ app.get("/llama", async (req, res) => {
   }
 });
 
-app.get("/", async function (req, res) {
-res.sendFile(path.join(__dirname,  "index.html"));
-});
+
 
 app.get('/shoti', async (req, res) => {
   try {
