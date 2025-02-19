@@ -7,7 +7,7 @@ const { gpt, llama } = require("gpti");
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { off } = require('process');
 const { Mistral } = require('@mistralai/mistralai');
-const { yts } = require("@hiudyy/ytdl");
+//const { yts } = require("@hiudyy/ytdl");
 //const fetch = require("node-fetch");
 const models = [
   "gemini-2.0-pro-exp-02-05",
@@ -68,7 +68,7 @@ app.get('/mistral', async (req, res) => {
 
 
 
-app.get('/yts2', async (req, res) => {
+/*app.get('/yts2', async (req, res) => {
     const query = req.query.q;
 
     if (!query) {
@@ -155,7 +155,7 @@ app.get("/yts", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-
+*/
 
 
 const apiKeys = [
